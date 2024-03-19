@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, Menu } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
@@ -9,13 +9,50 @@ function createWindow() {
     width: 1200,
     height: 800,
     show: false,
-    autoHideMenuBar: true,
+    // autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
     }
   })
+
+  // 1.自定义菜单内容
+  const menuTemp = [
+    {
+      label: '文件',
+      submenu: [
+        { label: '新建', accelerator: 'CmdOrCtrl+N' },
+        { label: '打开' },
+        { label: '保存' },
+        {
+          label: '打开最近文件',
+          type: 'submenu',
+          submenu: [
+            { label: '打开最近文件1' },
+            { label: '打开最近文件2' },
+            { label: '打开最近文件3' }
+          ]
+        },
+        { label: '关闭', role: 'quit' }
+      ]
+    },
+    {
+      label: '段落',
+      submenu: [
+        { label: '一级标题', type: 'radio' },
+        { label: '二级标题', type: 'radio' },
+        { label: '三级标题', type: 'radio' },
+        { label: '四级标题', type: 'radio' },
+        { label: '五级标题', type: 'radio' },
+        { label: '列级标题', type: 'radio' }
+      ]
+    }
+  ]
+  // 2.依据上述数据创建一个menu
+  const fileMenu = Menu.buildFromTemplate(menuTemp)
+  // 3.把上述菜单添加到app身上
+  Menu.setApplicationMenu(fileMenu)
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
