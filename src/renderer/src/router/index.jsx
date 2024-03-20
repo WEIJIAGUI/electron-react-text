@@ -1,4 +1,4 @@
-import Home from '@renderer/pages/Home'
+import App from '@renderer/App'
 import { createBrowserRouter } from 'react-router-dom'
 
-export default createBrowserRouter([{ path: '/', element: <Home /> }])
+export default createBrowserRouter([{ path: '/', element: <App /> }])

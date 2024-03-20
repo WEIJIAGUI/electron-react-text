@@ -6,9 +6,11 @@
 
 3.把上述菜单添加到app身上
 
-**label**字段是显示的文字，**type**字段有[radio,checkbox,submenu,separator]这几种类型，**accelerator**字段是快捷键，**submenu**表示子列表，还有**icon**字段
+**label**字段是显示的文字，**type**字段有[radio,checkbox,submenu,separator]这几种类型，**accelerator**字段是快捷键，**submenu**表示子列表，还有**icon**字段，当然还可以在menu的列表写**click()**回调函数
 
+# tailwindcss
 
+刚开始不会用，下次再说吧。
 
 
 
