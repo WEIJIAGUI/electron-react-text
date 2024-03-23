@@ -21,7 +21,7 @@ function createWindow() {
   // 1.自定义菜单内容
   const menuTemp = [
     {
-      label: '文件',
+      label: '文件(F)',
       submenu: [
         { label: '新建', accelerator: 'CmdOrCtrl+N' },
         { label: '打开' },
@@ -39,7 +39,7 @@ function createWindow() {
       ]
     },
     {
-      label: '段落',
+      label: '段落(P)',
       submenu: [
         { label: '一级标题', type: 'radio' },
         { label: '二级标题', type: 'radio' },
