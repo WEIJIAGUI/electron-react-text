@@ -44,15 +44,13 @@ function App() {
       <div className="left-bg">
         <div className="title-area">
           {leftManage.map((title, i) => (
-            <>
-              <div
-                key={title.id}
-                className={`file-outline ${title.active ? 'file-outline-active' : ''}`}
-                onClick={() => activeTitle(i)}
-              >
-                {title.name}
-              </div>
-            </>
+            <div
+              key={title.id}
+              className={`file-outline ${title.active ? 'file-outline-active' : ''}`}
+              onClick={() => activeTitle(i)}
+            >
+              {title.name}
+            </div>
           ))}
         </div>
         <div className="file-list" ref={fileList}>

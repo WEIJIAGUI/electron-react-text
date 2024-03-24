@@ -1,7 +1,8 @@
-import { app, shell, BrowserWindow, ipcMain, Menu } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, Menu, dialog } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { getFileObj } from '../utils/util'
 
 function createWindow() {
   // Create the browser window.
@@ -10,11 +11,12 @@ function createWindow() {
     height: 600,
     show: false,
     // autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
-    title: 'Electron',
+    title: 'Wypora',
+    icon,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      sandbox: false,
+      devTools: true
     }
   })
 
@@ -88,7 +90,12 @@ app.whenReady().then(() => {
   })
 
   // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
+  ipcMain.on('open-folder', async () => {
+    const folderPaths = await dialog.showOpenDialog({ properties: ['openDirectory'] })
+    const folderPath = folderPaths.filePaths[0]
+    const fileObj = await getFileObj(folderPath)
+    console.log(fileObj.length)
+  })
 
   createWindow()
 

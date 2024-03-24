@@ -1,18 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styles from './index.module.css'
 
 const Empty = (props) => {
-  console.log('asdas', props)
   const titles = props.titles
   if (titles.find((t) => t.active === true).name === '文件') {
+    const openFolder = () => {
+      window.ipc.ipcOpenFolder()
+    }
     return (
       <>
         {titles[0].empty ? (
           <React.Fragment>
-            <div className="file-list-look">
+            <div className={styles['file-list-look']}>
               <span>没有打开的文件夹</span>
             </div>
-            <div className="open-folder">打开文件夹...</div>
+            <div className={styles['open-folder']} onClick={openFolder}>
+              打开文件夹...
+            </div>
           </React.Fragment>
         ) : null}
       </>
@@ -22,7 +27,7 @@ const Empty = (props) => {
       <>
         {titles[0].empty ? (
           <React.Fragment>
-            <div className="file-list-look">
+            <div className={styles['file-list-look']}>
               <span>大纲内容为空</span>
             </div>
           </React.Fragment>
