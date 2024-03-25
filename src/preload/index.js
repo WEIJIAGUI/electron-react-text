@@ -6,8 +6,8 @@ import { ipcRenderer } from 'electron'
 const api = {}
 
 const ipc = {
-  ipcOpenFolder: () => {
-    ipcRenderer.send('open-folder')
+  ipcOpenFolder: async () => {
+    return await ipcRenderer.invoke('open-folder')
   }
 }
 

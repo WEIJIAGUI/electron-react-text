@@ -4,6 +4,7 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { getFileObj } from '../utils/util'
 
+let mainWin = null
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -19,7 +20,7 @@ function createWindow() {
       devTools: true
     }
   })
-
+  mainWin = mainWindow
   // 1.自定义菜单内容
   const menuTemp = [
     {
@@ -69,6 +70,7 @@ function createWindow() {
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+    mainWindow.webContents.openDevTools()
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
@@ -89,12 +91,12 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  // IPC test
-  ipcMain.on('open-folder', async () => {
+  // IPC
+  ipcMain.handle('open-folder', async () => {
     const folderPaths = await dialog.showOpenDialog({ properties: ['openDirectory'] })
     const folderPath = folderPaths.filePaths[0]
     const fileObj = await getFileObj(folderPath)
-    console.log(fileObj.length)
+    return fileObj
   })
 
   createWindow()

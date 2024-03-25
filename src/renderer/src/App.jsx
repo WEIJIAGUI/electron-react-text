@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
-import Empty from '@renderer/components/EmptyComponent'
+import { createContext, useEffect, useRef, useState } from 'react'
+import FileList from '@renderer/components/FileList'
+
+const FolderData = createContext()
 function App() {
-  // const [files, setFiles] = useState([])
+  const [folderlist, setFolderlist] = useState([])
   const fileList = useRef(null)
   const [leftManage, setLeftManage] = useState([
     {
@@ -40,26 +42,29 @@ function App() {
     fileList.current.addEventListener('mouseleave', leave)
   })
   return (
-    <div style={{ display: 'flex', height: '100vh' }}>
-      <div className="left-bg">
-        <div className="title-area">
-          {leftManage.map((title, i) => (
-            <div
-              key={title.id}
-              className={`file-outline ${title.active ? 'file-outline-active' : ''}`}
-              onClick={() => activeTitle(i)}
-            >
-              {title.name}
-            </div>
-          ))}
+    <FolderData.Provider value={{ folderlist, setFolderlist }}>
+      <div style={{ display: 'flex', height: '100vh' }}>
+        <div className="left-bg">
+          <div className="title-area">
+            {leftManage.map((title, i) => (
+              <div
+                key={title.id}
+                className={`file-outline char-color ${title.active ? 'file-outline-active' : ''}`}
+                onClick={() => activeTitle(i)}
+              >
+                {title.name}
+              </div>
+            ))}
+          </div>
+          <div className="file-list" ref={fileList}>
+            <FileList titles={leftManage} />
+          </div>
         </div>
-        <div className="file-list" ref={fileList}>
-          <Empty titles={leftManage} />
-        </div>
+        <div className="right-bg" contentEditable="true"></div>
       </div>
-      <div className="right-bg" contentEditable="true"></div>
-    </div>
+    </FolderData.Provider>
   )
 }
 
 export default App
+export { FolderData }

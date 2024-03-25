@@ -5,6 +5,7 @@
   align-items: center;
   color: #939393;
   background-color: transparent;
+  flex-direction: column;
 }
 
 .open-folder {

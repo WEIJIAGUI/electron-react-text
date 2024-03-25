@@ -28,7 +28,6 @@ body {
   height: 2rem;
   cursor: pointer;
   position: relative;
-  color: #939393;
 }
 .file-outline-active {
   font-weight: bold;
@@ -51,4 +50,12 @@ body {
   display: flex;
   height: 100%;
   flex-direction: column;
+}
+
+.char-color {
+  color: #939393;
+}
+
+.pointer {
+  cursor: pointer;
 }
