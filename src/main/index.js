@@ -4,10 +4,10 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { getFileObj } from '../utils/util'
 
-let mainWin = null
+let mainWindow = null
 function createWindow() {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1200,
     height: 600,
     show: false,
@@ -20,7 +20,6 @@ function createWindow() {
       devTools: true
     }
   })
-  mainWin = mainWindow
   // 1.自定义菜单内容
   const menuTemp = [
     {

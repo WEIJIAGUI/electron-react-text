@@ -7,11 +7,9 @@ import { FolderData } from '@renderer/App'
 const FileList = (props) => {
   const titles = props.titles
   const { folderlist, setFolderlist } = useContext(FolderData)
-  console.log(folderlist)
   if (titles.find((t) => t.active === true).name === '文件') {
     const openFolder = async () => {
       setFolderlist(await window.ipc.ipcOpenFolder())
-      console.log(folderlist)
     }
     return (
       <>

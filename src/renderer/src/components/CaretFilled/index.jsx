@@ -8,7 +8,6 @@ import PropTypes from 'prop-types'
 
 const CaretFilled = (props) => {
   const icon = props.icon
-  console.log(icon)
   if (icon === 'up') {
     return <CaretUpFilled />
   } else if (icon === 'down') {
@@ -18,7 +17,7 @@ const CaretFilled = (props) => {
   } else if (icon === 'right') {
     return <CaretRightFilled />
   } else {
-    return null
+    return <CaretRightFilled style={{ visibility: 'hidden' }} />
   }
 }
 

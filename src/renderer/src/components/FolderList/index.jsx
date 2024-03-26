@@ -4,19 +4,32 @@ import styles from './index.module.css'
 import CaretFilled from '../CaretFilled'
 import { useContext } from 'react'
 import { FolderData } from '@renderer/App'
+import _ from 'lodash'
+import { findDifferentChars } from '../../../../utils/util'
 
 const FolderList = (props) => {
-  const { fdataChange: folderData, setFolderlist } = useContext(FolderData)
+  const { folderlist: folderData, setFolderlist } = useContext(FolderData)
+  console.log(folderData)
   const { folderlist } = props
   const clickTree = (folder) => {
-    setFolderlist(
-      folderData.map((f) => {
-        if (folder.id === f.id) {
-          f.icon = f.icon === 'right' ? 'down' : 'right'
-        }
-        return f
-      })
-    )
+    if (!folder.isDirectory) return
+    const parent = folderData.map((f, i) => [i, f]).find((f) => folder.path.includes(f[1].path))
+    const target = findDifferentChars(folder.path, parent[1].path)
+    let changeTarget = null
+    if (!target[0]) {
+      changeTarget = folderData[parent[0]]
+    } else {
+      changeTarget = target.reduce((pre, cur) => {
+        return pre.children.find((child) => child.path === pre.path + window.constant.sep + cur)
+      }, parent[1])
+    }
+
+    if (changeTarget.icon === 'down') {
+      changeTarget.icon = 'right'
+    } else if (changeTarget.icon === 'right') {
+      changeTarget.icon = 'down'
+    }
+    setFolderlist(_.cloneDeep(folderData))
   }
   return (
     <ul className="char-color">
@@ -27,7 +40,7 @@ const FolderList = (props) => {
             {folder.isDirectory ? <FolderFilled /> : <FileOutlined />}
             {folder.name}
           </span>
-          <FolderList key={i} folderlist={folder.children} />
+          {folder.icon === 'down' ? <FolderList key={i} folderlist={folder.children} /> : null}
         </li>
       ))}
     </ul>
