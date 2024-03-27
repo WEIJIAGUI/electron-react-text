@@ -1,8 +1,11 @@
 import { createContext, useEffect, useRef, useState } from 'react'
 import FileList from '@renderer/components/FileList'
+import Md from '@renderer/components/Md'
 
 const FolderData = createContext()
 function App() {
+  const sep = useRef(null)
+  const left = useRef(null)
   const [folderlist, setFolderlist] = useState([])
   const fileList = useRef(null)
   const [leftManage, setLeftManage] = useState([
@@ -40,11 +43,23 @@ function App() {
     }
     fileList.current.addEventListener('mouseenter', enter)
     fileList.current.addEventListener('mouseleave', leave)
+
+    sep.current.addEventListener('mousedown', () => {
+      const fun = (e) => {
+        if (e.clientX <= 390) return
+        sep.current.style.left = e.clientX + 'px'
+        document.documentElement.style.setProperty('--left-bg-width', e.clientX + 'px')
+      }
+      document.addEventListener('mousemove', fun)
+      document.addEventListener('mouseup', () => {
+        document.removeEventListener('mousemove', fun)
+      })
+    })
   })
   return (
     <FolderData.Provider value={{ folderlist, setFolderlist }}>
       <div style={{ display: 'flex', height: '100vh' }}>
-        <div className="left-bg">
+        <div ref={left} className="left-bg">
           <div className="title-area">
             {leftManage.map((title, i) => (
               <div
@@ -60,7 +75,10 @@ function App() {
             <FileList titles={leftManage} />
           </div>
         </div>
-        <div className="right-bg" contentEditable="true"></div>
+        <div ref={sep} className="separator"></div>
+        <div className="right-bg">
+          <Md />
+        </div>
       </div>
     </FolderData.Provider>
   )

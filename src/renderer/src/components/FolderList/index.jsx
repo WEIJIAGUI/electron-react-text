@@ -34,8 +34,8 @@ const FolderList = (props) => {
   return (
     <ul className="char-color">
       {folderlist?.map((folder, i) => (
-        <li key={i}>
-          <span className="pointer" onClick={() => clickTree(folder)}>
+        <li key={i} style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          <span className="pointer nowrap" onClick={() => clickTree(folder)}>
             <CaretFilled icon={folder.icon} />
             {folder.isDirectory ? <FolderFilled /> : <FileOutlined />}
             {folder.name}

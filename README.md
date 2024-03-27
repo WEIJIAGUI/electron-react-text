@@ -14,9 +14,7 @@
 
 今天设置title时总是设置不起作用，看了官网，使用loadFile的话html的<title>标签设置了的话，在启动new窗口时的title属性就不起作用。
 
-
-
-
+今天发现electron只支持**hashrouter**，否则打包后会404。
 
 
 

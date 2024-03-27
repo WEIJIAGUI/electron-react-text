@@ -1,4 +1,4 @@
 import App from '@renderer/App'
-import { createBrowserRouter } from 'react-router-dom'
+import { createHashRouter } from 'react-router-dom'
 
-export default createBrowserRouter([{ path: '/', element: <App /> }])
+export default createHashRouter([{ path: '/', element: <App /> }])
