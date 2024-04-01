@@ -1,4 +1,4 @@
-import 'reset-css'
+// import 'reset-css'
 import '@renderer/assets/index.css'
 
 import ReactDOM from 'react-dom/client'

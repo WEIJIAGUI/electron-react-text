@@ -2,9 +2,14 @@ import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 import { ipcRenderer } from 'electron'
 import path from 'path'
+import fs from 'fs'
 
 // Custom APIs for renderer
-const api = {}
+const api = {
+  getFileContent: (path) => {
+    return fs.readFileSync(path, 'utf-8')
+  }
+}
 
 const ipc = {
   ipcOpenFolder: async () => {

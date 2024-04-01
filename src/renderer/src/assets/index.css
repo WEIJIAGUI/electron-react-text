@@ -1,16 +1,18 @@
 :root {
-  --left-bg-width: 25%;
+  --left-bg-width: 30%;
 }
 body {
-  -webkit-user-select: none;
+  margin: 0;
+  padding: 0;
 }
 .left-bg {
+  -webkit-user-select: none;
   background-color: #fafafa;
   width: var(--left-bg-width);
   height: 100%;
   display: flex;
   flex-direction: column;
-  min-width: 390;
+  min-width: 350px;
 }
 .title-area {
   display: flex;
@@ -20,6 +22,9 @@ body {
   flex: 1;
   height: 100%;
   cursor: text;
+  outline: none;
+  padding: 0 0 0 10px;
+  position: relative;
 }
 .file-outline {
   flex: 1;
@@ -73,4 +78,8 @@ body {
   bottom: 0;
   background-color: #e8e8e8;
   cursor: e-resize;
+}
+
+[contentEditable='true']:focus {
+  outline: none; /* 移除获得焦点时的默认外观 */
 }

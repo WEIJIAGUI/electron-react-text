@@ -8,11 +8,18 @@ import _ from 'lodash'
 import { findDifferentChars } from '../../../../utils/util'
 
 const FolderList = (props) => {
-  const { folderlist: folderData, setFolderlist } = useContext(FolderData)
-  console.log(folderData)
+  const { folderlist: folderData, setFolderlist, setText } = useContext(FolderData)
+
   const { folderlist } = props
   const clickTree = (folder) => {
-    if (!folder.isDirectory) return
+    console.log(folder)
+    if (folder.isDirectory) {
+      folderHandle(folder)
+    } else {
+      fileHandle(folder.path)
+    }
+  }
+  const folderHandle = (folder) => {
     const parent = folderData.map((f, i) => [i, f]).find((f) => folder.path.includes(f[1].path))
     const target = findDifferentChars(folder.path, parent[1].path)
     let changeTarget = null
@@ -30,6 +37,9 @@ const FolderList = (props) => {
       changeTarget.icon = 'down'
     }
     setFolderlist(_.cloneDeep(folderData))
+  }
+  const fileHandle = (filePath) => {
+    setText(window.api.getFileContent(filePath))
   }
   return (
     <ul className="char-color">

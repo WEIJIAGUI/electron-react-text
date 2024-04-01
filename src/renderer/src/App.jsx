@@ -1,12 +1,13 @@
 import { createContext, useEffect, useRef, useState } from 'react'
 import FileList from '@renderer/components/FileList'
-import Md from '@renderer/components/Md'
+import MD from '@renderer/components/Md'
 
 const FolderData = createContext()
 function App() {
   const sep = useRef(null)
   const left = useRef(null)
   const [folderlist, setFolderlist] = useState([])
+  const [text, setText] = useState('')
   const fileList = useRef(null)
   const [leftManage, setLeftManage] = useState([
     {
@@ -57,7 +58,7 @@ function App() {
     })
   })
   return (
-    <FolderData.Provider value={{ folderlist, setFolderlist }}>
+    <FolderData.Provider value={{ folderlist, setFolderlist, text, setText }}>
       <div style={{ display: 'flex', height: '100vh' }}>
         <div ref={left} className="left-bg">
           <div className="title-area">
@@ -77,7 +78,7 @@ function App() {
         </div>
         <div ref={sep} className="separator"></div>
         <div className="right-bg">
-          <Md />
+          <MD />
         </div>
       </div>
     </FolderData.Provider>

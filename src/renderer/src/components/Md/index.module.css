@@ -1,0 +1,17 @@
+.markdown-body-hidden {
+  z-index: 99;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+
+  opacity: 0;
+  /* pointer-events: none; */
+}
+.markdown-body {
+  height: 100%;
+  z-index: 1;
+  outline: none;
+}

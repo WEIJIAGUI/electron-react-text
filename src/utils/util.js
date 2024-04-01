@@ -13,8 +13,7 @@ const getFileObj = async (dir, dirLevel = 0) => {
         isDirectory: true,
         children,
         id: Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
-        icon: children?.length > 0 ? 'right' : '',
-        level: dirLevel
+        icon: children?.length > 0 ? 'right' : ''
       }
       result.push(directory)
     } else {
@@ -24,8 +23,7 @@ const getFileObj = async (dir, dirLevel = 0) => {
         isDirectory: false,
         children: null,
         id: Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
-        icon: '',
-        level: dirLevel
+        icon: ''
       }
       result.push(file)
     }
